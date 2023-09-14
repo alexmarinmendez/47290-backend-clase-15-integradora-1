@@ -1,24 +1,22 @@
 import { Router } from 'express'
-
-const pokemons = [
-    { name: 'pikachu', specie: 'electric'},
-    { name: 'bulbasur', specie: 'vegetal'},
-    { name: 'charizard', specie: 'fire'},
-]
+import pokemonModel from '../models/pokemon.model.js'
 
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const pokemons = await pokemonModel.find()
     res.json({ pokemons })
 })
 
-router.get('/:name', (req, res) => {
-    const name = req.params.name
-    res.send(`Mostrando el pokemon de nombre ${name}`)
-})
-
-router.post('/', (req, res) => {
-    res.send('Creando el pokemon')
+router.post('/', async (req, res) => {
+    const pokemonNew = req.body
+    const pokemonGenerated = new pokemonModel(pokemonNew)
+    try {
+        await pokemonGenerated.save()
+    } catch(err) {
+        console.log(err.message)
+    }
+    res.redirect('/pokemon')
 })
 
 export default router
