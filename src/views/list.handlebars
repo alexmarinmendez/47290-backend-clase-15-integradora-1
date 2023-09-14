@@ -1,3 +1,12 @@
-<div>
-    Listando pokemones...
-</div>
+<table class="table table-striped">
+    <tr>
+        <td>Nombre</td>
+        <td>Especie</td>
+    </tr>
+    {{#each pokemons }}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.specie}}</td>
+        </tr>
+    {{/each}}
+</table>

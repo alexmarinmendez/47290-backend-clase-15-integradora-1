@@ -9,7 +9,7 @@ const pokemons = [
 const router = Router()
 
 router.get('/', (req, res) => {
-    res.json({ pokemons })
+    res.render('list', { title: 'Lista de Pokemones', pokemons })
 })
 
 router.get('/:name', (req, res) => {
